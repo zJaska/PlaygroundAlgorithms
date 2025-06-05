@@ -8,16 +8,16 @@ def merge_array(intervals: List[List[int]])  -> List[int] :
     """
 
     if not intervals:
-        return []
+        raise ValueError("Intervals is empty!!")
+    
+    intervals.sort(key=lambda x: x[0]) # to be sure, we reorder on left value of interval
 
-    intervals.sort(key=lambda x: x[0]) # to be sure
-
-    merged = [intervals[0]]
+    merged = intervals[0]
 
     for current in intervals[1:]:
-        last = merged[-1]
-        if current[0] <= last[1]: # Se l'ultimo ha un intervallo più a destra del current estremo sx, per forza sovrapposizione
-            merged[-1] = [last[0], max(last[1], current[1])]
+        last = intervals[-1]
+        if current[0] <= last[1]:
+            merged[-1] = [last[0], max(current[1], last[1])]
         else:
             merged.append(current)
 
