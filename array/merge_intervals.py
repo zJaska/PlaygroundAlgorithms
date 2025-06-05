@@ -15,7 +15,7 @@ def merge_array(intervals: List[List[int]])  -> List[int] :
     merged = intervals[0]
 
     for current in intervals[1:]:
-        last = intervals[-1]
+        last = merged[-1]
         if current[0] <= last[1]:
             merged[-1] = [last[0], max(current[1], last[1])]
         else:
